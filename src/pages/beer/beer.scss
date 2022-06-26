@@ -1,0 +1,98 @@
+@import '../../App.scss';
+
+.beer__detail {    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 25px auto 0;
+
+    @include lg {        
+        max-width: none;
+        flex-direction: row;
+        align-items: start;
+    }
+
+    .beer__picture__wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+
+        .beer__detail__picture {        
+            max-height: 200px;
+    
+            @include lg {
+                max-height: 400px;
+            }
+        }
+    }
+
+
+    .beer__detail__infos {
+
+        flex: 2;
+
+        h2 {
+            text-align: center;
+            margin: 25px 0 10px;
+
+            @include lg {
+                text-align: start;
+                font-size: 30px;
+            }
+        }
+
+        .beer__detail__tagline {
+            display: block;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 14px;            
+
+            @include lg {
+                text-align: start;
+            }
+        }
+
+        .beer__detail__description {
+            display: block;
+            margin-bottom: 25px;
+            line-height: 18px;
+        }
+
+        .beer__detail__table {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 25px;
+
+            tr {
+                display: flex;
+
+                &:nth-child(odd) {
+                    background-color: rgb(229, 229, 229);
+                }
+
+                td {
+                    flex: 1;
+                    padding: 5px;
+                }
+            }
+        }
+
+        .beer__detail__food__pairing {
+            line-height: 18px;
+        }
+    }
+}
+
+.back {
+    display: block;
+    text-align: center;
+    margin: 50px 0 25px;
+    font-size: 12px;
+    font-style: italic;
+    text-decoration: underline;
+
+    @include lg {
+        margin: 100px 0 25px;
+    }
+}

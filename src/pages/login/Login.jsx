@@ -17,7 +17,7 @@ function Login() {
         await delay(750)
         setIsFetching(false)
 
-        if (!Users.some(user => {return user.username === loginUser.current.value})) {
+        if (!Users.some(user => {return user.username === loginUser.current.value.toLowerCase()})) {
             dispatch({ type: "LOGIN_FAILURE", payload: 'Invalid user'})
             setLoginError(true)
         } else if (!Users.some(user => {return user.password === loginPass.current.value})) {

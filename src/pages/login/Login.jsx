@@ -16,7 +16,7 @@ function Login() {
         if (user) {      
           navigate('/')  
         }
-      },[user])
+      },[user, navigate])
     
     async function handleSubmit (e) {
         e.preventDefault();
@@ -32,8 +32,8 @@ function Login() {
             dispatch({ type: "LOGIN_FAILURE", payload: 'Incorrect password'})
             setLoginError(true)
         } else {
-            dispatch({ type: "LOGIN_SUCCESS", payload: loginUser.current.value});
-            localStorage.setItem("userlogin",loginUser.current.value);      
+            dispatch({ type: "LOGIN_SUCCESS", payload: loginUser.current.value.toLowerCase()});
+            localStorage.setItem("userlogin",loginUser.current.value.toLowerCase());      
             navigate('/');
         }        
     }

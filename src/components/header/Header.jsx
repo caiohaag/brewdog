@@ -12,7 +12,7 @@ function Header() {
     if (!user) {      
       navigate('/login')  
     }
-  },[user])
+  },[user, navigate])
 
   const handleLogoff = (e) => {
     e.preventDefault();

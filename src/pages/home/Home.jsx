@@ -9,7 +9,7 @@ function Home() {
 
     const [items, setItems] = useState()
     const [page, setPage] = useState(1)
-    const [isFetching, setIsFetching] = useState(false)
+    const [isFetching, setIsFetching] = useState(false)    
 
     useEffect(() => {
         setIsFetching(true)

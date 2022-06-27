@@ -12,9 +12,8 @@ function Router () {
     const {user} = useContext(AuthContext);
     
     return (
-        <Routes>
-            <Route exact path='/' element={user ? <Home/> : <Login/>}/>             
-            <Route path='/home' element={user ? <Home/> : <Login/>}/> 
+        <Routes>            
+            <Route exact path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/> 
             <Route path='/beer/:id' element={<Beer/>}/> 
             <Route path='/about' element={<About/>} />

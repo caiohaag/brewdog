@@ -1,4 +1,5 @@
-import { useRef, useContext, useState } from "react";
+import { useRef, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { Users } from "../../data/data";
 import './login.scss'
@@ -8,8 +9,15 @@ function Login() {
     const loginPass = useRef();
     const [isFetching, setIsFetching] = useState(false);
     const [loginError, setLoginError] = useState(false);
-    const {error, dispatch} = useContext(AuthContext);
-
+    const {user, error, dispatch} = useContext(AuthContext);
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        if (user) {      
+          navigate('/')  
+        }
+      },[user])
+    
     async function handleSubmit (e) {
         e.preventDefault();
         setIsFetching(true)
@@ -25,7 +33,8 @@ function Login() {
             setLoginError(true)
         } else {
             dispatch({ type: "LOGIN_SUCCESS", payload: loginUser.current.value});
-            localStorage.setItem("userlogin",loginUser.current.value);
+            localStorage.setItem("userlogin",loginUser.current.value);      
+            navigate('/');
         }        
     }
 

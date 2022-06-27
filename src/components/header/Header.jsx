@@ -1,17 +1,24 @@
 import "./header.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 function Header() {
   const { user, dispatch } = useContext(AuthContext);
   const [menuIsActive, setMenuIsActive] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {      
+      navigate('/login')  
+    }
+  },[user])
 
   const handleLogoff = (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_SUCCESS", payload: null });
     localStorage.removeItem("userlogin");
-  };
+  };  
 
   return (
     <>

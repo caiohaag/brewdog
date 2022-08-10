@@ -32,7 +32,7 @@ function Beer() {
                         <>
                             <div className="beer__detail">
                                 <div className="beer__picture__wrapper">
-                                    <img src={item?.image_url} alt={item?.name} className="beer__detail__picture"/>
+                                    <img src={item?.image_url ? item.image_url : '/imagem-indisponivel.jpg'} alt={item?.name} className="beer__detail__picture"/>
                                 </div>
                                 <div className="beer__detail__infos">
                                     <h2>{item?.name}</h2>

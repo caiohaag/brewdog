@@ -1,41 +1,21 @@
-import { useRef, useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRef, useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { Users } from "../../data/data";
 import './login.scss'
 
 function Login() {
     const loginUser = useRef();
     const loginPass = useRef();
     const [isFetching, setIsFetching] = useState(false);
-    const [loginError, setLoginError] = useState(false);
-    const {user, error, dispatch} = useContext(AuthContext);
-    const navigate = useNavigate();
-    
-    useEffect(() => {
-        if (user) {      
-          navigate('/')  
-        }
-      },[user, navigate])
-    
+    const {login, loginError, passError, setLoginError, setPassError} = useContext(AuthContext);    
+            
     async function handleSubmit (e) {
         e.preventDefault();
         setIsFetching(true)
         const delay = (amount) => new Promise(resolve => setTimeout(resolve, amount))
         await delay(750)
         setIsFetching(false)
-
-        if (!Users.some(user => {return user.username === loginUser.current.value.toLowerCase()})) {
-            dispatch({ type: "LOGIN_FAILURE", payload: 'Invalid user'})
-            setLoginError(true)
-        } else if (!Users.some(user => {return user.password === loginPass.current.value})) {
-            dispatch({ type: "LOGIN_FAILURE", payload: 'Incorrect password'})
-            setLoginError(true)
-        } else {
-            dispatch({ type: "LOGIN_SUCCESS", payload: loginUser.current.value.toLowerCase()});
-            localStorage.setItem("userlogin",loginUser.current.value.toLowerCase());      
-            navigate('/');
-        }        
+             
+        login(loginUser.current.value.toLowerCase(), loginPass.current.value)
     }
 
     return ( 
@@ -43,8 +23,9 @@ function Login() {
             <img src="brewdog-logo.png" alt="BrewDog" className="brewdog__logo" />
             <form action="#" id="form__login" onSubmit={handleSubmit}>
                 <input type="text" id="login__user" name="login-user" ref={loginUser} required placeholder="Username" onChange={() => setLoginError(false)}/>
-                <input type="password" name="login-pass" id="login__pass" ref={loginPass} required placeholder="Password" onChange={() => setLoginError(false)}/>
-                {loginError ? <span className="login__error">{error}</span> : ''}
+                <input type="password" name="login-pass" id="login__pass" ref={loginPass} required placeholder="Password" onChange={() => setPassError(false)}/>
+                {loginError && <span className="login__error">Usuário não encontrado</span>}
+                {passError && <span className="login__error">Senha incorreta</span>}
                 {!isFetching ? (
                     <button type="submit">Login</button>
                 ) : (

@@ -1,24 +1,11 @@
 import "./header.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 function Header() {
-  const { user, dispatch } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const [menuIsActive, setMenuIsActive] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user) {      
-      navigate('/login')  
-    }
-  },[user, navigate])
-
-  const handleLogoff = (e) => {
-    e.preventDefault();
-    dispatch({ type: "LOGIN_SUCCESS", payload: null });
-    localStorage.removeItem("userlogin");
-  };  
 
   return (
     <>
@@ -40,10 +27,10 @@ function Header() {
             </li>
           </ul>
           <div className="user">
-            <img src={`/${user}.jpg`} alt={user} className="user__picture" />
+            <img src={`/${user?.username}.jpg`} alt={user?.username} className="user__picture" />
             <div className="user__actions">
-              <span className="user__name">{user}</span>
-              <button className="logout__button" onClick={handleLogoff}>
+              <span className="user__name">{user?.username}</span>
+              <button className="logout__button" onClick={logout}>
                 Logout
               </button>
             </div>
